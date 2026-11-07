@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ranga Home Security</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app">
+
+    <header class="header">
+        <div class="brand">
+            <div class="brand-icon"><i class="fa-solid fa-house-signal"></i></div>
+            <div>
+                <div class="brand-name">Ranga</div>
+                <div class="brand-sub">Home Security</div>
+            </div>
+        </div>
+        <div id="connection" class="connection">
+            <span class="connection-dot"></span>
+            <span id="connectionText">OFFLINE</span>
+        </div>
+    </header>
+
+    <nav class="main-tabs" aria-label="Main navigation">
+        <button class="main-tab active" data-tab="home"><i class="fa-solid fa-house"></i><span>Home</span></button>
+        <button class="main-tab" data-tab="household"><i class="fa-solid fa-people-roof"></i><span>Household</span></button>
+        <button class="main-tab" data-tab="storage"><i class="fa-solid fa-hard-drive"></i><span>Storage</span></button>
+        <button class="main-tab" data-tab="account"><i class="fa-solid fa-user"></i><span>Account</span></button>
+    </nav>
+
+    <main>
+        <section class="tab-panel active" data-panel="home">
+            <section class="camera-card">
+                <img id="cameraStream" src="" alt="Front door camera">
+                <div class="camera-overlay">
+                    <div class="live-pill"><span class="live-dot"></span> LIVE</div>
+                    <div class="camera-quality">FRONT DOOR · VGA</div>
+                </div>
+            </section>
+
+            <div id="callState" class="call-state">
+                <div class="call-state-main">
+                    <span class="call-state-dot"></span>
+                    <span id="callStateText">CONNECTED</span>
+                </div>
+                <div id="callTime" class="call-time">00:00</div>
+            </div>
+
+            <button id="startCall" class="start-call">
+                <i class="fa-solid fa-phone"></i> START CALL
+            </button>
+
+            <div id="callControls" class="call-controls">
+                <button id="micButton" class="call-control mic-active" aria-label="Toggle microphone">
+                    <span class="control-icon"><i id="micIcon" class="fa-solid fa-microphone"></i></span>
+                    <span id="micLabel" class="control-label">Microphone</span>
+                    <span id="micState" class="control-state">ON</span>
+                </button>
+                <button id="speakerButton" class="call-control speaker-active" aria-label="Toggle speaker">
+                    <span class="control-icon"><i id="speakerIcon" class="fa-solid fa-volume-high"></i></span>
+                    <span id="speakerLabel" class="control-label">Speaker</span>
+                    <span id="speakerState" class="control-state">ON</span>
+                </button>
+                <button id="hangupButton" class="call-control end" aria-label="End call">
+                    <span class="control-icon"><i class="fa-solid fa-phone-slash"></i></span>
+                    <span class="control-label">End Call</span>
+                    <span class="control-state">DISCONNECT</span>
+                </button>
+            </div>
+
+            <section id="audioPanel" class="audio-panel">
+                <div class="route">
+                    <div id="phoneMicRoute" class="route-node active"><i class="fa-solid fa-microphone"></i>&nbsp; PHONE MIC</div>
+                    <div class="route-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div id="espSpeakerRoute" class="route-node active"><i class="fa-solid fa-volume-high"></i>&nbsp; ESP32 SPEAKER</div>
+                </div>
+                <div class="route">
+                    <div id="espMicRoute" class="route-node"><i class="fa-solid fa-microphone-lines"></i>&nbsp; DOORBELL MIC</div>
+                    <div class="route-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div id="phoneSpeakerRoute" class="route-node"><i class="fa-solid fa-volume-high"></i>&nbsp; PHONE</div>
+                </div>
+            </section>
+
+            <button id="diagnosticsToggle" class="diagnostics-toggle">
+                <i class="fa-solid fa-chevron-down"></i>&nbsp; Diagnostics
+            </button>
+            <div id="diagnostics" class="diagnostics"></div>
+        </section>
+
+        <section class="tab-panel" data-panel="household">
+            <div class="page-card">
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">HOUSEHOLD</div>
+                        <h2>Home presence</h2>
+                    </div>
+                    <span class="status-badge">LIVE READY</span>
+                </div>
+                <div class="empty-state">
+                    <i class="fa-solid fa-people-roof"></i>
+                    <h3>Household monitoring</h3>
+                    <p>This area is reserved for live member presence, recognized people, guests, and doorbell events.</p>
+                    <div class="future-grid">
+                        <div><i class="fa-solid fa-user-check"></i><span>Members at home</span><b>Coming</b></div>
+                        <div><i class="fa-solid fa-user-clock"></i><span>Expected guests</span><b>Coming</b></div>
+                        <div><i class="fa-solid fa-shield-halved"></i><span>Security events</span><b>Coming</b></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-panel" data-panel="storage">
+            <div class="page-card">
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">STORAGE</div>
+                        <h2>Recordings</h2>
+                    </div>
+                    <button id="refreshRecordings" class="small-button"><i class="fa-solid fa-rotate"></i> Refresh</button>
+                </div>
+
+                <div class="storage-summary">
+                    <div class="storage-stat"><span>Used</span><strong id="storageUsed">—</strong></div>
+                    <div class="storage-stat"><span>Available</span><strong id="storageAvailable">—</strong></div>
+                    <div class="storage-stat"><span>Allocation</span><strong id="storageLimit">—</strong></div>
+                </div>
+                <div class="storage-bar"><div id="storageBarFill"></div></div>
+
+                <div id="recordingPlayerWrap" class="recording-player-wrap hidden">
+                    <div class="player-header">
+                        <div>
+                            <div class="eyebrow">PLAYBACK</div>
+                            <div id="playerTitle" class="player-title">Recording</div>
+                        </div>
+                        <button id="closePlayer" class="icon-button" title="Close"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                    <video id="recordingPlayer" controls playsinline preload="metadata"></video>
+                    <div class="player-actions">
+                        <a id="downloadRecording" class="small-button" href="#" download><i class="fa-solid fa-download"></i> Download</a>
+                        <button id="preserveRecording" class="small-button"><i class="fa-solid fa-lock"></i> Preserve</button>
+                    </div>
+                </div>
+
+                <div id="recordingsList" class="recordings-list">
+                    <div class="loading-state"><i class="fa-solid fa-spinner fa-spin"></i> Loading recordings…</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tab-panel" data-panel="account">
+            <div class="page-card">
+                <div class="page-heading">
+                    <div>
+                        <div class="eyebrow">ACCOUNT</div>
+                        <h2>Ranga account</h2>
+                    </div>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-row"><i class="fa-solid fa-user"></i><div><b>Profile</b><span>Account identity and preferences</span></div><em>Coming</em></div>
+                    <div class="setting-row"><i class="fa-solid fa-house"></i><div><b>Household access</b><span>Members, roles, and invitations</span></div><em>Coming</em></div>
+                    <div class="setting-row"><i class="fa-solid fa-bell"></i><div><b>Notifications</b><span>Security and storage alerts</span></div><em>Coming</em></div>
+                    <div class="setting-row"><i class="fa-solid fa-robot"></i><div><b>Ranga AI</b><span>Natural-language security assistant</span></div><em>Coming</em></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="footer">RANGA · LIVE CAMERA · 16 KHZ PCM · H.264 RECORDINGS</div>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>

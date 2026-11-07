@@ -1,0 +1,18 @@
+INMP441       ESP32-S3
+----------------------
+SCK       →   GPIO2
+WS        →   GPIO1
+SD        →   GPIO42
+L/R       →   GND
+VDD       →   3.3V
+GND       →   GND
+
+MAX98357A     ESP32-S3
+----------------------
+BCLK      →   GPIO40
+LRC       →   GPIO41
+DIN       →   GPIO39
+GND       →   GND
+VIN       →   appropriate amplifier supply
+
+NOTE: This may be outdated...alwaays verify by looking at the firmware.
