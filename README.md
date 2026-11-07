@@ -144,7 +144,7 @@ AI tools were used as development assistance, particularly to help draft and ite
 ![Ranga breadboard prototype](media/breadboard-prototype.jpg)
 
 ### Camera and two-way audio demo
-
+![Ranga live video](media/Ranga_test.mp4)
 ### Altium schematic
 
 ![Ranga PCB schematic](media/altium-schematic.png)
