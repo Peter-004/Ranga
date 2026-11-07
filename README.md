@@ -1,6 +1,6 @@
 # Ranga — AI-Assisted Home Security & Intercom Project
 
-> **Project documentation.** Ranga is a personal engineering project exploring a networked doorbell/intercom, local AI-assisted observation, and a self-hosted home-security stack. It is a prototype and learning project—not a finished, certified, or currently commercial product.
+> **Project documentation.** Ranga is a personal engineering project exploring a networked doorbell/intercom, local AI-assisted observation, and a self-hosted home-security stack. It is a prototype project—not a finished, certified, or currently commercial product.
 
 ---
 
