@@ -91,15 +91,15 @@ A low-cost batch of miniature electret microphone modules—roughly ten for abou
 
 ### 3. MAX9814: a useful improvement, but not the final path
 
-The MAX9814 microphone amplifier/AGC module improved the analog microphone signal. However, when integrated into the ESP32-S3-CAM streaming setup, the transmitted audio was still problematic. The working suspicion was that the ESP32-WROOM-32's ADC path and the sampling/streaming implementation were contributing to the problem; this was a hypothesis based on the observed behaviour, not a formally isolated root cause.
+The MAX9814 microphone amplifier/AGC module improved the analog microphone signal. However, when integrated into the ESP32-S3-CAM streaming setup, the transmitted audio was still problematic. The working suspicion was that the ESP32-WROOM-32's ADC path and the sampling/streaming implementation were contributing to the problem; this was hypothesis based on the observed behaviour, not a formally isolated cause.
 
-The next design iteration moved microphone conversion out of the ESP32's analog input path. That change reduced uncertainty at the boundary between the physical microphone and digital transport.
+The next design iteration moved microphone conversion out of the ESP32's analog input path.
 
 ### 4. INMP441: move to digital I²S capture
 
-The INMP441 provided digital audio over I²S and included the microphone's conversion circuitry. The firmware now configures I²S receive at 16 kHz with 32-bit input samples, then processes the data for transport. That made the microphone path more deterministic than reading an analog voltage through the ESP32 ADC without the need for heacy capacitive filtering as with the former MAX9814 and cheap 2mm eletret MEMs.
+The INMP441 provided digital audio over I²S and included the microphone's conversion circuitry. The firmware now configures I²S receive at 16 kHz with 32-bit input samples, then processes the data for transport. That made the microphone path more deterministic than reading an analog voltage through the ESP32 ADC without the need for heavy capacitive filtering as with the former MAX9814 and cheap 2mm eletret MEMs.
 
-This was a design decision based on the complete system, not just a microphone specification: the signal needed to be captured, buffered, transmitted over Wi-Fi, and reconstructed in a browser(for prototype) or speaker without the analog conversion stage being a weak link.
+This was a design decision based on the complete system, not just a microphone specification.
 
 ### 5. LM386 to MAX98357A
 
@@ -124,13 +124,13 @@ The firmware configuration in the archive includes:
 
 ## Server architecture
 
-The supplied server structure snapshot shows a split deployment.
+The supplied server structure shows a split deployment. Two servers, each burdened with glorious purpose according to their capabilities.
 
-### server-002 — browser and device gateway
+### server-002 — browser and device gateway.(DELL Thin Wyze Client)
 
 The gateway runs Alpine Linux. Its project directory contains `server.py`, a `static/` directory with the web UI (`index.html`, `app.js`, `style.css`), certificate files, a recording helper, and a Python virtual environment. The live server uses `aiohttp` and provides HTTPS/WSS on port 8000 in the captured configuration.
 
-### server-001 — AI and processing host
+### server-001 — AI and processing host (DELL Optiplex 5070)
 
 This server is intended for heavier processing than the ESP32 can reasonably perform. The project has explored live observation, object/person detection and tracking, facial comparison/enrollment, recording/storage, speech output, and a local Ollama LLM engine.
 
@@ -138,30 +138,23 @@ This server is intended for heavier processing than the ESP32 can reasonably per
 
 AI tools were used as development assistance, particularly to help draft and iterate on firmware/server code, explore debugging hypotheses, and speed up research across unfamiliar datasheets and libraries. 
 
-## Media gallery — add your own project evidence
-
-
-
+## Media gallery 
 ### Breadboard prototype
 
 ![Ranga breadboard prototype](media/breadboard-prototype.jpg)
 
-
 ### Camera and two-way audio demo
-
 
 ### Altium schematic
 
 ![Ranga PCB schematic](media/altium-schematic.png)
 
-
 ### PCB layout / 3D view
 
 ![Ranga PCB layout](media/altium-pcb-layout.png)
-
 
 ## Repository and media setup
 - **GitHub repository:** `https://github.com/Peter004/Ranga`
 - **Portfolio URL:** `https://peteradebayo.vercel.app/`
 
-Ranga is a learning-focused prototype. It is not a certified alarm system, guaranteed identity-verification system, or substitute for professionally installed security equipment. Test responsibly and make any necessary changes to fit or align with your use case.
+Ranga is a learning-focused prototype and not a commercially certified alarm system. Test responsibly and make any necessary changes to fit or align with your use case.
